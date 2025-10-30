@@ -45,12 +45,18 @@ jobs:
       # ==================================
       # 6. Set up Kubernetes & Deploy
       # ==================================
-      - name: 6. Set up Kubeconfig via File Write (Bypassing Parsing Errors)
-        id: kubeconfig_setup
-        env:
-            KUBECONFIG_BASE64: ${{ secrets.KUBE_CONFIG }}
-        run: |
-          echo $KUBECONFIG_BASE64 | base64 --decode > $HOME/.kube/config
+      # In .github/workflows/ci-cd.yml, update Step 6:
+
+      - name: 6. Set up Kubeconfig via File Write (Bypassing Errors)
+          id: kubeconfig_setup
+          env:
+    KUBECONFIG_BASE64: ${{ secrets.KUBE_CONFIG }}
+  run: |
+    # 1. CREATE the .kube directory if it doesn't exist
+    mkdir -p $HOME/.kube
+    
+    # 2. Decode the base64 secret and write it to the now-existing file
+    echo $KUBECONFIG_BASE64 | base64 --decode > $HOME/.kube/config
 
       # NOTE: For a real deployment, you would typically run these steps 
       # only if the 'push' event happened on the main branch.
