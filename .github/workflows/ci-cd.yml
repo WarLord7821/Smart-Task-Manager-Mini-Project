@@ -45,11 +45,12 @@ jobs:
       # ==================================
       # 6. Set up Kubernetes & Deploy
       # ==================================
-      - name: 6. Set up Kubeconfig (for Deployment)
-        uses: azure/k8s-set-context@v4
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      - name: 6. Set up Kubeconfig via File Write (Bypassing Parsing Errors)
+        id: kubeconfig_setup
+        env:
+            KUBECONFIG_BASE64: ${{ secrets.KUBE_CONFIG }}
+        run: |
+          echo $KUBECONFIG_BASE64 | base64 --decode > $HOME/.kube/config
 
       # NOTE: For a real deployment, you would typically run these steps 
       # only if the 'push' event happened on the main branch.
