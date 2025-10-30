@@ -1,0 +1,46 @@
+.formContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    border-radius: 3px;
+    box-shadow: 0 12px 16px rgba(0, 0, 0, .25);
+    padding: 1rem;
+    border: 1px dashed #003B73;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    height: 2rem;
+    width: 18rem;
+    border-radius: 0.5rem;
+    border: 1px solid #000000;
+    padding-left: 0.5em;
+}
+
+.buttonStyleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.button {
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #60A3D9;
+    color: #ffffff;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgb(81, 99, 161);
+    }
+}
+
+.labelStyle {
+    font-weight: bold;
+}

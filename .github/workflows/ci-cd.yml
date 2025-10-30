@@ -1,0 +1,70 @@
+name: CI/CD Pipeline for Smart Task Manager
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 2. Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ==================================
+      # 3. Docker Login
+      # ==================================
+      - name: 3. Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      # ==================================
+      # 4. Build & Push Backend
+      # ==================================
+      - name: 4. Build & Push Backend Image
+        run: |
+          docker build ./backend -t warlord7821/miniproject:backend-v1
+          docker push warlord7821/miniproject:backend-v1
+
+      # ==================================
+      # 5. Build & Push Frontend
+      # ==================================
+      - name: 5. Build & Push Frontend Image
+        run: |
+          docker build ./frontend -t warlord7821/miniproject:frontend-v1
+          docker push warlord7821/miniproject:frontend-v1
+
+      # ==================================
+      # 6. Set up Kubernetes & Deploy
+      # ==================================
+      - name: 6. Set up Kubeconfig (for Deployment)
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      # NOTE: For a real deployment, you would typically run these steps 
+      # only if the 'push' event happened on the main branch.
+      - name: 7. Deploy Kubernetes Manifests
+        run: |
+          # The MongoDB URI Secret must be created manually once before this step runs
+          # kubectl create secret generic mongo-uri-secret --from-env-file=backend/.env
+          
+          # Apply Backend Deployment and Service
+          kubectl apply -f backend-deployment.yaml
+          kubectl apply -f backend-service.yaml
+
+          # Apply Frontend Deployment and Service
+          kubectl apply -f frontend-deployment.yaml
+          kubectl apply -f frontend-service.yaml
+          
+          kubectl rollout status deployment/smart-task-manager-frontend-deployment
+          kubectl rollout status deployment/smart-task-manager-backend-deployment

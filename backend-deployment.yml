@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-task-manager-backend-deployment
+  labels:
+    app: smart-task-manager
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: smart-task-manager
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: smart-task-manager
+        tier: backend
+    spec:
+      containers:
+      - name: smart-task-manager-backend
+        image: warlord7821/miniproject:backend-v1 # <-- UPDATED IMAGE
+        ports:
+        - containerPort: 5000
+        env:
+        # Inject MONGODB_URI from the Kubernetes Secret (created via kubectl manually)
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: mongo-uri-secret
+              key: MONGODB_URI
+        - name: PORT
+          valueFrom:
+            secretKeyRef:
+              name: mongo-uri-secret
+              key: PORT

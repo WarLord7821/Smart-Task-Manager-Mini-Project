@@ -1,0 +1,11 @@
+.headerContainer{
+    display: flex;
+    padding-left: 1rem;
+    width: 100%;
+    background-color: #003B73;
+    color: #FFFFFF;
+    font-family: sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}

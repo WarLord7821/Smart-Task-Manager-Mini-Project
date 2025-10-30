@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-task-manager-frontend-deployment
+  labels:
+    app: smart-task-manager
+    tier: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: smart-task-manager
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: smart-task-manager
+        tier: frontend
+    spec:
+      containers:
+      - name: smart-task-manager-frontend
+        image: warlord7821/miniproject:frontend-v1 # <-- UPDATED IMAGE
+        ports:
+        - containerPort: 80
+        env:
+        # Critical: Points the frontend to the internal Kubernetes backend service
+        - name: VITE_API_URL
+          value: "http://backend-service:5000"

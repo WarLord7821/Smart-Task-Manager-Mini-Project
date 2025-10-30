@@ -1,0 +1,22 @@
+.subContainer{
+    display: flex;
+    gap: 2rem;
+}
+
+.contentContainer{
+    display: flex;
+}
+
+.leftContainer{
+    padding: 0 1rem ;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.rightContainer{
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
