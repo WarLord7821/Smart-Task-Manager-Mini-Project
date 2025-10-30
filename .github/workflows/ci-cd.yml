@@ -39,7 +39,7 @@ jobs:
       # ==================================
       - name: 5. Build & Push Frontend Image
         run: |
-          docker build ./frontend -t warlord7821/miniproject:frontend-v1
+          docker build . -t warlord7821/miniproject:frontend-v1
           docker push warlord7821/miniproject:frontend-v1
 
       # ==================================
