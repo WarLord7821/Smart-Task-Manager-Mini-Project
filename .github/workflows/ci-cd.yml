@@ -31,7 +31,7 @@ jobs:
       # ==================================
       - name: 4. Build & Push Backend Image
         run: |
-          docker build . -t warlord7821/miniproject:backend-v1
+          docker build -t warlord7821/miniproject:backend-v1 -f ./Backend/Dockerfile ./Backend 
           docker push warlord7821/miniproject:backend-v1
 
       # ==================================
@@ -39,8 +39,8 @@ jobs:
       # ==================================
       - name: 5. Build & Push Frontend Image
         run: |
-          docker build . -t warlord7821/miniproject:frontend-v1
-          docker push warlord7821/miniproject:frontend-v1
+         docker build -t warlord7821/miniproject:frontend-v1 -f ./Frontend/Dockerfile ./Frontend
+         docker push warlord7821/miniproject:frontend-v1
 
       # ==================================
       # 6. Set up Kubernetes & Deploy
