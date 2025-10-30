@@ -31,7 +31,7 @@ jobs:
       # ==================================
       - name: 4. Build & Push Backend Image
         run: |
-          docker build ./backend -t warlord7821/miniproject:backend-v1
+          docker build . -t warlord7821/miniproject:backend-v1
           docker push warlord7821/miniproject:backend-v1
 
       # ==================================
