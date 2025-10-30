@@ -46,14 +46,21 @@ jobs:
       # 6. Set up Kubernetes & Deploy
       # ==================================
       # In .github/workflows/ci-cd.yml, update Step 6:
-      - name: 6. Set up Kubeconfig via File Write (Bypassing Errors)
+      # In .github/workflows/ci-cd.yml, update Step 6:
+
+      - name: 6. Set up Kubeconfig via File Write (FINAL FAILSAFE)
         id: kubeconfig_setup
         env:
             KUBECONFIG_BASE64: ${{ secrets.KUBE_CONFIG }}
         run: |
-    
+
            mkdir -p $HOME/.kube
-           echo "$KUBECONFIG_BASE64" | tr -d '\r' | base64 --decode > $HOME/.kube/config
+    
+   
+           echo "${KUBECONFIG_BASE64}" | tr -d '\r' > /tmp/kubeconfig.base64
+    
+    
+           base64 --decode /tmp/kubeconfig.base64 > $HOME/.kube/config
       # NOTE: For a real deployment, you would typically run these steps 
       # only if the 'push' event happened on the main branch.
       - name: 7. Deploy Kubernetes Manifests
