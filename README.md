@@ -1,6 +1,6 @@
-# Smart Task Management App
+# Smart Task Management App 
 
-This is a React-based task management application that allows users to organize tasks, manage priorities, track due dates, and analyze task data.
+This is a React-based task management application that allows users to organize tasks, manage priorities, track due dates, and analyze task data. 
 
 ## Features
 
@@ -8,7 +8,7 @@ This is a React-based task management application that allows users to organize 
 - **Drag-and-Drop Functionality:** Tasks can be rearranged by dragging and dropping within the interface based on their status (e.g., started, added, completed).
 - **Due Date Tracking:** The application displays due dates for tasks.
 - **Priority Management:** Priorities for tasks are visualized for easy identification.
-- **Task Analysis:** The app provides graphical representations for task analysis and insights.
+- **Task Analysis:** The app provides graphical representations for task analysis and insights.   
 
 ## Technologies Used
 
