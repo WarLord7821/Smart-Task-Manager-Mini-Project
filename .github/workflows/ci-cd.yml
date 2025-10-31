@@ -63,14 +63,9 @@ jobs:
       # only if the 'push' event happened on the main branch.
       - name: 7. Deploy Kubernetes Manifests
         run: |
-          # The MongoDB URI Secret must be created manually once before this step runs
-          # kubectl create secret generic mongo-uri-secret --from-env-file=backend/.env
-          
-          # Apply Backend Deployment and Service
           kubectl apply -f backend-deployment.yaml
           kubectl apply -f backend-service.yaml
 
-          # Apply Frontend Deployment and Service
           kubectl apply -f frontend-deployment.yaml
           kubectl apply -f frontend-service.yaml
           
