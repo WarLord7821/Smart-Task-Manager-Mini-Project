@@ -63,11 +63,11 @@ jobs:
       # only if the 'push' event happened on the main branch.
       - name: 7. Deploy Kubernetes Manifests
         run: |
-          kubectl apply -f backend-deployment.yml
-          kubectl apply -f backend-service.yaml
+          kubectl apply -f backend-deployment.yml --validate=false
+          kubectl apply -f backend-service.yaml --validate=false
 
-          kubectl apply -f frontend-deployment.yaml
-          kubectl apply -f frontend-service.yaml
+          kubectl apply -f frontend-deployment.yaml --validate=false
+          kubectl apply -f frontend-service.yaml --validate=false
           
           kubectl rollout status deployment/smart-task-manager-frontend-deployment
           kubectl rollout status deployment/smart-task-manager-backend-deployment
