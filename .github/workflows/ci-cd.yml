@@ -63,7 +63,7 @@ jobs:
       # only if the 'push' event happened on the main branch.
       - name: 7. Deploy Kubernetes Manifests
         run: |
-          kubectl apply -f backend-deployment.yaml
+          kubectl apply -f backend-deployment.yml
           kubectl apply -f backend-service.yaml
 
           kubectl apply -f frontend-deployment.yaml
